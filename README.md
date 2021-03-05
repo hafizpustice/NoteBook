@@ -30,3 +30,8 @@ All collections also serve as iterators, allowing you to loop over them as if th
     foreach ($users as $user) {
         echo $user->name;
     }
+
+### **Composer**
+Similarly, for composer we can use composer.sh to run composer commands. For example
+
+    ./composer.sh install
