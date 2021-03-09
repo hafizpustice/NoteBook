@@ -387,53 +387,55 @@ Thank you for reading.
 # Sample resolve dependency injection in laravel by selvice container
 
 
-    ```PHP
-    class SimpleContainer
+```PHP
+class SimpleContainer
+{
+    protected static $container = [];
+    public static function bind($name, callable $resolver)
     {
-        protected static $container = [];
-        public static function bind($name, Callable $resolver)
-        {   
-            static::$container[$name] = $resolver;
-        }
-        public static function make($name)
-        {
-            if(isset(static::$container[$name])){
-                $resolver = static::$container[$name] ;
-                return $resolver();
-            }
-            throw new Exception("Binding does not exist in containeer");
-        }
+        static::$container[$name] = $resolver;
     }
-
-
-    class LogToDatabase 
+    public static function make($name)
     {
-        public function execute($message)
-        {
-            var_dump('log the message to a database :'.$message);
+        if (isset(static::$container[$name])) {
+            $resolver = static::$container[$name];
+            return $resolver();
         }
+        throw new Exception("Binding does not exist in containeer");
     }
-    class UsersController {
-        
-        protected $logger;
-        
-        public function __construct(LogToDatabase $logger)
-        {
-            $this->logger = $logger;
-        }
-        
-        public function show()
-        {
-            $user = 'JohnDoe';
-            $this->logger->execute($user);
-        }
+}
+
+
+class LogToDatabase
+{
+    public function execute($message)
+    {
+        var_dump('log the message to a database :' . $message);
+    }
+}
+class UsersController
+{
+
+    protected $logger;
+
+    public function __construct(LogToDatabase $logger)
+    {
+        $this->logger = $logger;
     }
 
+    public function show()
+    {
+        $user = 'JohnDoe';
+        $this->logger->execute($user);
+    }
+}
 
-    SimpleContainer::bind('Foo', function(){
-        return new UsersController(new LogToDatabase);
-    });
 
-    $foo = SimpleContainer::make('Foo');
-    print_r($foo->show());
-    ```
+SimpleContainer::bind('Foo', function () {
+    return new UsersController(new LogToDatabase);
+});
+
+$foo = SimpleContainer::make('Foo');
+print_r($foo->show());
+
+```

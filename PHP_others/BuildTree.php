@@ -1,6 +1,7 @@
 <?php
 
-function buildTree(Array $data, $parent = null) {
+function buildTree(array $data, $parent = null)
+{
     $tree = array();
     foreach ($data as $d) {
         if ($d['parent'] == $parent) {
@@ -8,7 +9,7 @@ function buildTree(Array $data, $parent = null) {
             // set a trivial key
             if (!empty($children)) {
                 $d['_children'] = $children;
-               /* echo json_encode($d['_children']);
+                /* echo json_encode($d['_children']);
                 echo "<br>";*/
             }
             $tree[] = $d;
@@ -20,46 +21,47 @@ function buildTree(Array $data, $parent = null) {
 }
 
 $rows = array(
-    array (
+    array(
         'id' => 1001,
-        'name' => 'Bangladesh', 
+        'name' => 'Bangladesh',
         'parent' => null
     ),
-    array (
+    array(
         'id' => 1002,
-        'name' => 'Dhaka', 
+        'name' => 'Dhaka',
         'parent' => 1001
     ),
-    array (
-        'id' => 1003, 
-        'name' => 'Mirpur', 
-        'parent' => 1002),
-    array (
-        'id' => 1004, 
-        'name' => 'Mirpur DOHS', 
+    array(
+        'id' => 1003,
+        'name' => 'Mirpur',
+        'parent' => 1002
+    ),
+    array(
+        'id' => 1004,
+        'name' => 'Mirpur DOHS',
         'parent' => 1003
     ),
-    array (
+    array(
         'id' => 1005,
-        'name' => 'Rajshahi', 
+        'name' => 'Rajshahi',
         'parent' => 1001
     ),
-    array (
+    array(
         'id' => 1006,
-        'name' => 'Raani Bazar', 
+        'name' => 'Raani Bazar',
         'parent' => 1005
-    ),  
-    array (
+    ),
+    array(
         'id' => 2001,
-        'name' => 'India', 
+        'name' => 'India',
         'parent' => null
     ),
-    array (
+    array(
         'id' => 2002,
-        'name' => 'kolkata', 
+        'name' => 'kolkata',
         'parent' => 2001
     ),
-   
+
 );
 
 $tree = buildTree($rows);
@@ -75,11 +77,12 @@ function TestTree($tree)
     echo "<br>";
 }*/
 
-function printTree($tree, $r = 0, $p = null) {
+function printTree($tree, $r = 0, $p = null)
+{
     foreach ($tree as $i => $t) {
-        $dash = ($t['parent'] == null) ? '' : str_repeat('-', $r) .' ';
+        $dash = ($t['parent'] == null) ? '' : str_repeat('-', $r) . ' ';
         printf("\t<option value='%d'>%s%s</option>\n", $t['id'], $dash, $t['name']);
-       /* if ($t['parent'] == $p) {
+        /* if ($t['parent'] == $p) {
             // reset $r
             $r = 0;
         }*/
