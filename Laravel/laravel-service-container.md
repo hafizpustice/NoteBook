@@ -387,7 +387,8 @@ Thank you for reading.
 # Sample resolve dependency injection in laravel by selvice container
 
 
-    ```class SimpleContainer
+    ```PHP
+    class SimpleContainer
     {
         protected static $container = [];
         public static function bind($name, Callable $resolver)
