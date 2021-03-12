@@ -64,3 +64,15 @@ class User extends Model
         $this->attributes['email'] = $value;
     }
 }
+
+===============================Helper log method ============================================
+function logInfo($message = null)
+{
+    $data['message'] = $message;
+    $data['action'] = class_basename(Route::currentRouteAction());
+    $data['url'] = request()->url();
+    $data['user_ip_address'] = request()->ip();
+    $data['user'] = auth()->user()->name ?? 'Guest';
+    Log::error($data);
+}
+==============================================================================================
